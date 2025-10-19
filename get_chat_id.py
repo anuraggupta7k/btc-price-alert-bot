@@ -1,18 +1,33 @@
 #!/usr/bin/env python3
-"""
-Simple script to get your Telegram chat ID.
-Run this script and send any message to your bot to get your chat ID.
-"""
 
 import requests
-import time
 import json
+import sys
+import os
 
-BOT_TOKEN = "8287038518:AAEbJHuRW3uAIDOvSccWtX8CYHaL77QiAIM"
+def get_chat_id():
+    """
+    Get your Telegram chat ID by fetching recent messages from your bot.
+    Make sure to send a message to your bot first!
+    
+    Usage: 
+    export TELEGRAM_BOT_TOKEN="your-bot-token"
+    python get_chat_id.py
+    """
+    BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+    
+    if not BOT_TOKEN:
+        print("❌ Error: TELEGRAM_BOT_TOKEN environment variable not set!")
+        print("\nPlease set your bot token first:")
+        print("export TELEGRAM_BOT_TOKEN='your-bot-token-here'")
+        print("\nThen run this script again.")
+        sys.exit(1)
+    
+    return BOT_TOKEN
 
-def get_updates():
+def get_updates(bot_token):
     """Get updates from Telegram bot to find chat ID"""
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates"
+    url = f"https://api.telegram.org/bot{bot_token}/getUpdates"
     try:
         response = requests.get(url)
         data = response.json()
@@ -46,7 +61,8 @@ if __name__ == "__main__":
     print("If no messages are found, send a message to your bot first!")
     print("-" * 50)
     
-    chat_id = get_updates()
+    bot_token = get_chat_id()
+    chat_id = get_updates(bot_token)
     if chat_id:
         print(f"\n✅ Found your Chat ID: {chat_id}")
         print("You can now use this Chat ID for the bot setup.")

@@ -39,10 +39,10 @@ Set your Telegram credentials as secrets:
 
 ```bash
 wrangler secret put TELEGRAM_BOT_TOKEN
-# Enter: 8287038518:AAEbJHuRW3uAIDOvSccWtX8CYHaL77QiAIM
+# Enter your bot token (get it from @BotFather on Telegram)
 
 wrangler secret put TELEGRAM_CHAT_ID
-# Enter your chat ID (get it from @userinfobot on Telegram)
+# Enter your chat ID (get it from @userinfobot on Telegram or use get_chat_id.py)
 ```
 
 ## Step 5: Deploy the Worker
