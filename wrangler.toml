@@ -5,7 +5,7 @@ compatibility_date = "2024-01-01"
 # KV namespace for storing bot state
 [[kv_namespaces]]
 binding = "BTC_ALERT_KV"
-id = "your-kv-namespace-id"  # Will be replaced when you create the KV namespace
+id = "b706c4d8de7b46fcb9c81dd47597715f"
 
 # Cron trigger to check price every 30 seconds
 [triggers]

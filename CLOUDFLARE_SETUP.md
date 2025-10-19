@@ -3,7 +3,6 @@
 ## Prerequisites
 1. Cloudflare account (free tier is sufficient)
 2. Node.js installed on your machine
-3. Your Telegram bot token: `8287038518:AAEbJHuRW3uAIDOvSccWtX8CYHaL77QiAIM`
 4. Your Telegram chat ID
 
 ## Step 1: Install Wrangler CLI
