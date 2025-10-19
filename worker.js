@@ -52,12 +52,43 @@ class BinanceClient {
 
   async getCurrentPrice() {
     try {
-      const response = await fetch(`${this.baseUrl}/ticker/price?symbol=${CONFIG.SYMBOL}`);
-      if (!response.ok) {
-        throw new Error(`Binance API error: ${response.status}`);
+      // Try multiple APIs for better reliability
+      const apis = [
+        'https://api.coinbase.com/v2/exchange-rates?currency=BTC',
+        'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',
+        'https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT'
+      ];
+      
+      for (const apiUrl of apis) {
+        try {
+          const response = await fetch(apiUrl, {
+            headers: {
+              'User-Agent': 'BTC-Alert-Bot/1.0'
+            }
+          });
+          
+          if (!response.ok) {
+            console.log(`API ${apiUrl} returned ${response.status}, trying next...`);
+            continue;
+          }
+          
+          const data = await response.json();
+          
+          // Parse different API response formats
+          if (apiUrl.includes('coinbase')) {
+            return parseFloat(data.data.rates.USD);
+          } else if (apiUrl.includes('coingecko')) {
+            return parseFloat(data.bitcoin.usd);
+          } else if (apiUrl.includes('binance')) {
+            return parseFloat(data.price);
+          }
+        } catch (error) {
+          console.log(`Error with API ${apiUrl}:`, error.message);
+          continue;
+        }
       }
-      const data = await response.json();
-      return parseFloat(data.price);
+      
+      throw new Error('All price APIs failed');
     } catch (error) {
       console.error('Error fetching price:', error);
       throw error;
