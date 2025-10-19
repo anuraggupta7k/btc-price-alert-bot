@@ -1,0 +1,17 @@
+{
+  "name": "btc-price-alert-bot",
+  "version": "1.0.0",
+  "description": "Bitcoin price alert bot for Cloudflare Workers",
+  "main": "worker.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "wrangler dev --local"
+  },
+  "keywords": ["bitcoin", "price", "alert", "telegram", "cloudflare", "workers"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

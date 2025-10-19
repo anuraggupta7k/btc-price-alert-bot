@@ -1,0 +1,21 @@
+name = "btc-price-alert-bot"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# KV namespace for storing bot state
+[[kv_namespaces]]
+binding = "BTC_ALERT_KV"
+id = "your-kv-namespace-id"  # Will be replaced when you create the KV namespace
+
+# Cron trigger to check price every 30 seconds
+[triggers]
+crons = ["*/30 * * * *"]  # Every 30 seconds
+
+# Environment variables (set these in Cloudflare dashboard)
+[vars]
+PRICE_DELTA_USD = "500"
+DRY_RUN = "0"
+
+# Secrets (set these using wrangler secret put)
+# TELEGRAM_BOT_TOKEN = "your-bot-token"
+# TELEGRAM_CHAT_ID = "your-chat-id"
